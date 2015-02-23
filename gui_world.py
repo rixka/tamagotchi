@@ -120,7 +120,11 @@ if not tamagotchi.wired:
     btnNap = Button(root, text="Nap", command=tamagotchi.nap)
     btnNap.pack(side=LEFT, padx=30, pady=5)
 
-# Run the 'startGame' function when the enter key is pressed.
+"""
+This thingy below it wrong but it makes it function so until I write a function to call two functions it will do.
+"""
+
+# Run the 'GameOn' function when the left mouse button is released.
 root.bind('<ButtonRelease-1>', GameOn)
 
 # Start the GUI
