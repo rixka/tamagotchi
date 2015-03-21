@@ -27,50 +27,49 @@ class pet(object):
 		self.sleep += random.randint(1, 10)
 		self.hygiene -= random.randint(1, 10)
 
-		# If hunger is greater than 50 adjust health, happy, sleep
+		# When hungry health, happy, sleep deteriorates
 		if self.hunger > 50:
 			print ("I'M HUNGRY!")
 			self.health -= random.randint(5, 15)
 			self.happy -= random.randint(1, 10)
 			self.sleep -= random.randint(1, 15)
 
-		# If bladder is greater than 50 print warning message and adjust health and happy
+		# When needing the toilet health and happy deteriorates
 		if self.bladder > 50:
 			print ("I'M POOPY!")
 			self.health -= random.randint(5, 25)
 			self.happy -= random.randint(1, 10)
 
-		# Else-if bladder is 99+ print messaged and decrement health and hygiene
+		# When bladder is full health and hygeine significantly deteriorate
 		elif self.bladder >= 99:
 			print ("MY BLADDER EXPLOADED")
 			self.health -= 50
 			self.hygiene -= 90
 
-		# If sleep is greated than 50 print warning message and adjust health and happy
+		# When sleepy health and happy deteriorates
 		if self.sleep > 50:
 			print ("I'M SLEEPY!")
 			self.health -= random.randint(1, 10)
 			self.happy -= random.randint(5, 25)
 
-		# If happy is less than 60 print warning message
 		if self.happy < 60:
 			print ("I'M BORED!")
 		
-		# If happy is greater or equal to 40 then holiday is false
+		# Come back from holiday when happiness is satisfactory
 		if self.happy >= 40:
 			self.holiday = False
 
-		# Else-if happy is less than 40 and holiday is false decrement happy and set holiday true
+		# When unhappy pet goes on holiday and becomes pissed off that it had to
 		elif self.happy < 40 and not self.holiday:
 			self.happy = 20
 			self.holiday = True
 
-		# If bladder equals a random integer between 50-75 initialise earthquake and scared = true	
+		# Create random possibility for an Earthquake and scare pet	
 		if self.bladder == random.randint(50, 75):
 			self.scared = True
 			print("EARTHQUAKE! I'M SCARED")
 
-		# If hunger equals a random integer between 50-75 sick is true and hunger increases
+		# Create random possibility to get sick and very hungry
 		if self.hunger == random.randint(50, 75):
 			self.sick = True
 			self.hunger += 90
@@ -107,27 +106,22 @@ class pet(object):
 		print ("Bladder: {}".format(self.bladder))
 		print ("Hygiene: {}\n". format(self.hygiene))
 
-	# Action feed
 	def feed(self):
 		self.hunger -= 30
 		self.bladder += random.randint(1, 10)
 		if self.hunger < 0:
 			self.hunger = 0
 
-	# Action to use toilet
 	def toilet(self):
 		self.bladder -= 30
 		if self.bladder < 0:
 			self.bladder = 0
 
-	# Action clean
 	def clean(self):
 		self.hygiene += 30
 	
-	# Action play	
 	def play(self):
 		self.happy += 30
 
-	# Action to nap
 	def nap(self):
 		self.sleep -= 30
