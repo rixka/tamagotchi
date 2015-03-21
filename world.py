@@ -1,18 +1,10 @@
-"""
-Tamagotchi Simulator by Kayleigh Rix
-
-"""
-
-# Import class pet from tama file
 from tama import pet
 
 # Create class world to specify user interface
 class world (object):
 
-	# Tamagotchi is equal to class pet
 	tamagotchi = pet()
 
-	# Life span is set to 20 and starts on day 1
 	max_age = 20
 	
 	# Link user response to action
@@ -42,15 +34,13 @@ class world (object):
 		# Check condidtion of pet and run update to print existing stats
 		tamagotchi.update()
 
-		# If health reaches 0, pet is dead print message and quit
+		# It Died
 		if tamagotchi.health <= 0:
 			print ("I'M DEAD!")
 			break
 		
-		# Call print stats from class pet()
 		tamagotchi.print_status()
 
-		# if tamagotchi is not on holiday
 		if not tamagotchi.holiday:
 			# Prompt for user response and call handling
 			response = input("What do you want to do?")
