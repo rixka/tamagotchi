@@ -1,57 +1,56 @@
-from tama import pet
+from tama import Pet
 
 # Create class world to specify user interface
-class world (object):
 
-	tamagotchi = pet()
 
-	max_age = 20
-	
-	# Link user response to action
-	def handle_response(tamagotchi, response):
+class World (object):
 
-		if response == 'f':
-			tamagotchi.feed()
-		elif response == 'c':
-			tamagotchi.clean()
-		elif response == 'p':
-			tamagotchi.play()
-		elif response == 'n':
-			if tamagotchi.wired:
-				print ("Tama wired and cannot sleep\n")
-			else: 
-				tamagotchi.nap()
-		elif response == 't':
-			tamagotchi.toilet()
+    tamagotchi = Pet()
 
-		# Damage Control
-		else:
-			print ("Please try again:\n\n'f' for feed\n'c' for clean\n'p' for play\n'n' for nap\n't' for toilet\n")
+    max_age = 20
+    
+    # Link user response to action
+    def handle_response(tamagotchi, response):
 
-	# Begin game and run while day is less than or equal to life span
-	while tamagotchi.age <= max_age:
+        if response == 'f':
+            tamagotchi.feed()
+        elif response == 'c':
+            tamagotchi.clean()
+        elif response == 'p':
+            tamagotchi.play()
+        elif response == 'n':
+            if tamagotchi.wired:
+                print("Tama wired and cannot sleep\n")
+            else: 
+                tamagotchi.nap()
+        elif response == 't':
+            tamagotchi.toilet()
 
-		# Check condidtion of pet and run update to print existing stats
-		tamagotchi.update()
+        # Damage Control
+        else:
+            print("Please try again:\n\n'f' for feed\n'c' for clean\n'p' for play\n'n' for nap\n't' for toilet\n")
 
-		# It Died
-		if tamagotchi.health <= 0:
-			print ("I'M DEAD!")
-			break
-		
-		tamagotchi.print_status()
+    # Begin game and run while day is less than or equal to life span
+    while tamagotchi.age < max_age:
 
-		if not tamagotchi.holiday:
-			# Prompt for user response and call handling
-			response = input("What do you want to do?")
-			handle_response(tamagotchi, response)
+        # Check condition of pet and run update to print existing stats
+        tamagotchi.update()
 
-		# If tamagotchi is on holiday print message and *do not allow actions*
-		else:
-			print ("### TAMAGOTCHI ON HOLIDAY ###")
+        # It Died
+        if tamagotchi.health <= 0:
+            print("I'M DEAD!")
+            break
+        
+        tamagotchi.print_status()
 
-		# Increment day
-		day += 1
+        if not tamagotchi.holiday:
+            # Prompt for user response and call handling
+            response = input("What do you want to do?")
+            handle_response(tamagotchi, response)
 
-	if day == total_days:
-		print ("You Win!\n")
+        # If tamagotchi is on holiday print message and *do not allow actions*
+        else:
+            print("### TAMAGOTCHI ON HOLIDAY ###")
+
+    if tamagotchi.age == max_age:
+        print("You Win!\n")
