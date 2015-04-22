@@ -9,7 +9,6 @@ class Pet(object):
         self.holiday = False
         self.scared = False
         self.sick = False
-        self.wired = False
         self.age = 0
         self.health = 99
         self.hunger = 0
@@ -17,6 +16,7 @@ class Pet(object):
         self.bladder = 0
         self.sleep = 0
         self.hygiene = 99
+        self.image = 'vhappy'
 
     # Check stats 
     def update(self):
@@ -31,6 +31,7 @@ class Pet(object):
         # When hungry health, happy, sleep deteriorates
         if self.hunger > 50:
             print("I'M HUNGRY!")
+            self.image = "hungry"
             self.health -= random.randint(5, 15)
             self.happy -= random.randint(1, 10)
             self.sleep -= random.randint(1, 15)
@@ -38,23 +39,28 @@ class Pet(object):
         # When needing the toilet health and happy deteriorates
         if self.bladder > 50:
             print("I'M POOPY!")
+            self.image =  "poopy"
             self.health -= random.randint(5, 25)
             self.happy -= random.randint(1, 10)
 
         # When bladder is full health and hygeine significantly deteriorate
         elif self.bladder >= 99:
             print("MY BLADDER EXPLODED")
+            self.image = "scared"
+            self.scared = True
             self.health -= 50
             self.hygiene -= 90
 
         # When sleepy health and happy deteriorates
         if self.sleep > 50:
             print("I'M SLEEPY!")
+            self.image = "images/sleepy.gif"
             self.health -= random.randint(1, 10)
             self.happy -= random.randint(5, 25)
 
         if self.happy < 60:
             print("I'M BORED!")
+            self.image = "bored"
         
         # Come back from holiday when happiness is satisfactory
         if self.happy >= 40:
@@ -79,7 +85,6 @@ class Pet(object):
         if self.scared:
             self.happy -= 45
             self.bladder += 90
-            self.wired = True
 
         # While sick increase hunger and bladder nad decrease hygiene
         if self.sick:

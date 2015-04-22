@@ -26,7 +26,7 @@ def updateDisplay():
 			state(DISABLED)
 			return
 
-		if tamagotchi.wired:
+		if tamagotchi.scared:
 			btnNap.config(state=DISABLED)
 		else:
 			btnNap.config(state=NORMAL)
@@ -41,7 +41,10 @@ def updateDisplay():
 		hungerLabel.config(text="Hunger: {}".format(tamagotchi.hunger))
 		happinessLabel.config(text="Happiness: {}".format(tamagotchi.happy))
 		bladderLabel.config(text="Bladder: {}".format(tamagotchi.bladder))
-		hygieneLabel.config(text="Hygiene: {}". format(tamagotchi.hygiene))
+		hygieneLabel.config(text="Hygiene: {}".format(tamagotchi.hygiene))
+		img = PhotoImage(file=images[tamagotchi.image])
+		pet.config(image=img)
+		print(img)
 # -------------------------------------------------------------------
 
 
@@ -71,7 +74,14 @@ root = Tk()
 root.title("Stay Alive!")
 root.geometry("450x305")
 
-logo = PhotoImage(file="images/happy.gif")
+images = {
+	'bored': PhotoImage(file="images/bored.gif"),
+	'vhappy': PhotoImage(file="images/vhappy.gif"),
+	'hungry': PhotoImage(file="images/hungry.gif"),
+	'poopy': PhotoImage(file="images/poopy.gif"),
+	'scared': PhotoImage(file="images/scared.gif"),
+	'sleepy': PhotoImage(file="images/sleepy.gif"),
+}
 
 # Add labels
 startLabel = Label(root, text="\nGAME ON!\n", font=('Helvetica', 12))
@@ -79,22 +89,23 @@ startLabel.grid(columnspan=6)
 btnReset = Button(root, text="Reset", command=combine_funcs(tamagotchi.__init__, updateDisplay))
 btnReset.grid(column=6, row=0)
 
-ageLabel = Label(root, text="Age: " + str(tamagotchi.age), font=('Helvetica', 12))
+ageLabel = Label(root, text="Age: {}".format(tamagotchi.age), font=('Helvetica', 12))
 ageLabel.grid(sticky=W, padx=20, columnspan=2, row=2)
-healthLabel = Label(root, text="Health: " + str(tamagotchi.health), font=('Helvetica', 12))
+healthLabel = Label(root, text="Health: {}".format(tamagotchi.health), font=('Helvetica', 12))
 healthLabel.grid(sticky=W, padx=20, columnspan=2, row=3)
-tirednessLabel = Label(root, text="Tiredness: " + str(tamagotchi.sleep), font=('Helvetica', 12))
+tirednessLabel = Label(root, text="Tiredness: {}".format(tamagotchi.sleep), font=('Helvetica', 12))
 tirednessLabel.grid(sticky=W, padx=20, columnspan=2, row=4)
-hungerLabel = Label(root, text="Hunger: " + str(tamagotchi.hunger), font=('Helvetica', 12))
+hungerLabel = Label(root, text="Hunger: {}".format(tamagotchi.hunger), font=('Helvetica', 12))
 hungerLabel.grid(sticky=W, padx=20, columnspan=2, row=5)
-happinessLabel = Label(root, text="Happiness: " + str(tamagotchi.happy), font=('Helvetica', 12))
+happinessLabel = Label(root, text="Happiness: {}".format(tamagotchi.happy), font=('Helvetica', 12))
 happinessLabel.grid(sticky=W, padx=20, columnspan=2, row=6)
-bladderLabel = Label(root, text="Bladder: " + str(tamagotchi.bladder), font=('Helvetica', 12))
+bladderLabel = Label(root, text="Bladder: {}".format(tamagotchi.bladder), font=('Helvetica', 12))
 bladderLabel.grid(sticky=W, padx=20, columnspan=2, row=7)
-hygieneLabel = Label(root, text="Hygiene: " + str(tamagotchi.hygiene), font=('Helvetica', 12))
+hygieneLabel = Label(root, text="Hygiene: {}".format(tamagotchi.hygiene), font=('Helvetica', 12))
 hygieneLabel.grid(sticky=W, padx=20, columnspan=2, row=8)
 
-pet = Label(root, image=logo).grid(sticky=E, column=2, row=2, columnspan=5, rowspan=7, pady=5)
+pet = Label(root, image=images[tamagotchi.image])
+pet.grid(sticky=E, column=2, row=2, columnspan=5, rowspan=7, pady=5)
 
 # Add buttons
 btnFeed = Button(root, text="Feed", command=combine_funcs(tamagotchi.feed, GameOn))
