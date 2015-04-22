@@ -1,5 +1,6 @@
 from tkinter import *
 from tama import Pet
+import ipdb
 
 tamagotchi = Pet()
 max_age = 20
@@ -42,9 +43,7 @@ def updateDisplay():
 		happinessLabel.config(text="Happiness: {}".format(tamagotchi.happy))
 		bladderLabel.config(text="Bladder: {}".format(tamagotchi.bladder))
 		hygieneLabel.config(text="Hygiene: {}".format(tamagotchi.hygiene))
-		img = PhotoImage(file=images[tamagotchi.image])
-		pet.config(image=img)
-		print(img)
+		pet.config(image=images[tamagotchi.image])
 # -------------------------------------------------------------------
 
 
