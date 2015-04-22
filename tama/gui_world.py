@@ -4,50 +4,65 @@ from tama import Pet
 tamagotchi = Pet()
 max_age = 20
 # -------------------------------------------------------------------
+def state(state):
+	btnFeed.config(state=state)
+	btnClean.config(state=state)
+	btnPlay.config(state=state)
+	btnToilet.config(state=state)
+	btnNap.config(state=state)
+# -------------------------------------------------------------------
 
 
 def GameOn():
-    tamagotchi.update()
-    updateDisplay()
+	tamagotchi.update()
+	updateDisplay()
 # -------------------------------------------------------------------
 
 
 def updateDisplay():
+	try:
+		if tamagotchi.age == max_age:
+			startLabel.config(text="CONGRATULATIONS\n\n You Win!")
+			state(DISABLED)
+			return
 
-    if tamagotchi.age == max_age:
-        startLabel.config(text="CONGRATULATIONS\n\n You Win!")
-        return False
+		if tamagotchi.wired:
+			btnNap.config(state=DISABLED)
+		else:
+			btnNap.config(state=NORMAL)
+			
+		isAlive()
 
-    # Update labels
-    ageLabel.config(text="Age: {}".format(tamagotchi.age))
-    healthLabel.config(text="Health: {}".format(tamagotchi.health))
-    tirednessLabel.config(text="Tiredness: {}".format(tamagotchi.sleep))
-    hungerLabel.config(text="Hunger: {}".format(tamagotchi.hunger))
-    happinessLabel.config(text="Happiness: {}".format(tamagotchi.happy))
-    bladderLabel.config(text="Bladder: {}".format(tamagotchi.bladder))
-    hygieneLabel.config(text="Hygiene: {}". format(tamagotchi.hygiene))
-
-    isAlive()
+	finally:
+		# Update labels
+		ageLabel.config(text="Age: {}".format(tamagotchi.age))
+		healthLabel.config(text="Health: {}".format(tamagotchi.health))
+		tirednessLabel.config(text="Tiredness: {}".format(tamagotchi.sleep))
+		hungerLabel.config(text="Hunger: {}".format(tamagotchi.hunger))
+		happinessLabel.config(text="Happiness: {}".format(tamagotchi.happy))
+		bladderLabel.config(text="Bladder: {}".format(tamagotchi.bladder))
+		hygieneLabel.config(text="Hygiene: {}". format(tamagotchi.hygiene))
 # -------------------------------------------------------------------
 
 
 def isAlive():
 
-    # Dead
-    if tamagotchi.health <= 0:
-        startLabel.config(text="\nGAME OVER! YOU KILLED IT!\n")
-        return False
-    else:
-        startLabel.config(text="\nGAME ON!\n")
-        return True
+	# Dead
+	if tamagotchi.health <= 0:
+		startLabel.config(text="\nGAME OVER! YOU KILLED IT!\n")
+		state(DISABLED)
+	else:
+		startLabel.config(text="\nGAME ON!\n")
+		state(NORMAL)
+	return
 # -------------------------------------------------------------------
 
 
 def combine_funcs(*funcs):
-    def combined_func(*args, **kwargs):
-        for f in funcs:
-            f(*args, **kwargs)
-    return combined_func
+	def combined_func(*args, **kwargs):
+		for f in funcs:
+			f(*args, **kwargs)
+	return combined_func
 # -------------------------------------------------------------------
 
 
@@ -90,9 +105,8 @@ btnPlay = Button(root, text="Play", command=combine_funcs(tamagotchi.play, GameO
 btnPlay.grid(column=4, row=10)
 btnToilet = Button(root, text="Toilet", command=combine_funcs(tamagotchi.toilet, GameOn))
 btnToilet.grid(column=5, row=10)
-if not tamagotchi.wired:
-    btnNap = Button(root, text="Nap", command=combine_funcs(tamagotchi.nap, GameOn))
-    btnNap.grid(column=6, row=10, rowspan=2)
+btnNap = Button(root, text="Nap", command=combine_funcs(tamagotchi.nap, GameOn))
+btnNap.grid(column=6, row=10, rowspan=2)
 
 # Start the GUI
 root.mainloop()
