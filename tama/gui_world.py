@@ -27,10 +27,24 @@ def updateDisplay():
 			state(DISABLED)
 			return
 
-		if tamagotchi.scared:
-			btnNap.config(state=DISABLED)
-		else:
-			btnNap.config(state=NORMAL)
+		elif tamagotchi.holiday:
+			btnFeed.config(text='HOLIDAY', command=updateDisplay)
+			btnClean.config(text='HOLIDAY', command=updateDisplay)
+			btnPlay.config(text='HOLIDAY', command=updateDisplay)
+			btnToilet.config(text='HOLIDAY', command=updateDisplay)
+			btnNap.config(text='HOLIDAY', command=updateDisplay)
+
+		elif not tamagotchi.holiday:
+			btnFeed.config(text="Feed", command=combine_funcs(tamagotchi.feed, GameOn))
+			btnClean.config(text="Clean", command=combine_funcs(tamagotchi.clean, GameOn))
+			btnPlay.config(text="Play", command=combine_funcs(tamagotchi.play, GameOn))
+			btnToilet.config(text="Toilet", command=combine_funcs(tamagotchi.toilet, GameOn))
+			btnNap.config(text="Nap", command=combine_funcs(tamagotchi.nap, GameOn))
+
+			if tamagotchi.scared:
+				btnNap.config(state=DISABLED)
+			else:
+				btnNap.config(state=NORMAL)
 			
 		isAlive()
 
@@ -44,6 +58,7 @@ def updateDisplay():
 		bladderLabel.config(text="Bladder: {}".format(tamagotchi.bladder))
 		hygieneLabel.config(text="Hygiene: {}".format(tamagotchi.hygiene))
 		pet.config(image=images[tamagotchi.image])
+
 # -------------------------------------------------------------------
 
 
