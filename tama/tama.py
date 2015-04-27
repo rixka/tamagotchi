@@ -25,56 +25,47 @@ class Pet(object):
         self.age += 1
         self.hunger += random.randint(1, 15)
         self.bladder += random.randint(1, 15)
-        self.sleep += random.randint(1, 10)
+        self.sleep += random.randint(1, 15)
         self.hygiene -= random.randint(1, 10)
+        self.image = 'vhappy'
 
         # When hungry health, happy, sleep deteriorates
         if self.hunger > 50:
-            print("I'M HUNGRY!")
+            #print("I'M HUNGRY!")
             self.image = "hungry"
-            self.health -= random.randint(5, 15)
+            self.health -= random.randint(5, 25)
             self.happy -= random.randint(1, 10)
-            self.sleep -= random.randint(1, 15)
+            self.sleep += random.randint(1, 15)
 
         # When needing the toilet health and happy deteriorates
         if self.bladder > 50:
-            print("I'M POOPY!")
+            #print("I'M POOPY!")
             self.image =  "poopy"
             self.health -= random.randint(5, 25)
             self.happy -= random.randint(1, 10)
 
         # When bladder is full health and hygeine significantly deteriorate
-        elif self.bladder >= 99:
-            print("MY BLADDER EXPLODED")
-            self.image = "scared"
+        if self.bladder >= 99:
+            #print("MY BLADDER EXPLODED")
             self.scared = True
             self.health -= 50
             self.hygiene -= 90
 
         # When sleepy health and happy deteriorates
         if self.sleep > 50:
-            print("I'M SLEEPY!")
-            self.image = "images/sleepy.gif"
+            #print("I'M SLEEPY!")
+            self.image = "sleepy"
             self.health -= random.randint(1, 10)
-            self.happy -= random.randint(5, 25)
+            self.happy -= random.randint(5, 10)
 
         if self.happy < 60:
-            print("I'M BORED!")
+            #print("I'M BORED!")
             self.image = "bored"
-        
-        # Come back from holiday when happiness is satisfactory
-        if self.happy >= 40:
-            self.holiday = False
-
-        # When unhappy pet goes on holiday and becomes pissed off that it had to
-        elif self.happy < 40 and not self.holiday:
-            self.happy = 20
-            self.holiday = True
 
         # Create random possibility for an Earthquake and scare pet    
         if self.bladder == random.randint(50, 75):
             self.scared = True
-            print("EARTHQUAKE! I'M SCARED")
+            #print("EARTHQUAKE! I'M SCARED")
 
         # Create random possibility to get sick and very hungry
         if self.hunger == random.randint(50, 75):
@@ -83,24 +74,33 @@ class Pet(object):
 
         # While scared decrease happy and increase bladder
         if self.scared:
+            self.image = 'scared'
             self.happy -= 45
             self.bladder += 90
 
         # While sick increase hunger and bladder nad decrease hygiene
         if self.sick:
-            self.hunger += random.randint(1, 10)
-            self.hygiene -= random.randint(1, 10)
-            self.bladder += random.randint(1, 10)
+            self.hunger += random.randint(1, 30)
+            self.hygiene -= random.randint(1, 30)
+            self.bladder += random.randint(1, 30)
 
         # While on holiday improve stats slightly
         if self.holiday:
-            self.happy += 5
+            self.happy += random.randint(10, 15)
             self.health += random.randint(1, 5)
             self.hunger -= random.randint(1, 5)
             self.happy += random.randint(1, 5)
             self.bladder -= random.randint(1, 5)
             self.sleep -= random.randint(1, 5)
             self.hygiene += random.randint(1, 5)
+
+        if self.happy >= 40:
+            self.holiday = False
+
+        # When unhappy pet goes on holiday and becomes pissed off that it had to
+        if self.happy < 40:
+            self.happy = 20
+            self.holiday = True
 
     # Print all stats
     def print_status(self):
@@ -110,7 +110,7 @@ class Pet(object):
         print("Hunger: {}".format(self.hunger))
         print("Happiness: {}".format(self.happy))
         print("Bladder: {}".format(self.bladder))
-        print("Hygiene: {}\n". format(self.hygiene))
+        print("Hygiene: {}\n".format(self.hygiene))
 
     def feed(self):
         self.hunger -= 30

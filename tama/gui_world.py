@@ -1,6 +1,5 @@
 from tkinter import *
 from tama import Pet
-import ipdb
 
 tamagotchi = Pet()
 max_age = 20
@@ -27,14 +26,14 @@ def updateDisplay():
 			state(DISABLED)
 			return
 
-		elif tamagotchi.holiday:
-			btnFeed.config(text='HOLIDAY', command=updateDisplay)
-			btnClean.config(text='HOLIDAY', command=updateDisplay)
-			btnPlay.config(text='HOLIDAY', command=updateDisplay)
-			btnToilet.config(text='HOLIDAY', command=updateDisplay)
-			btnNap.config(text='HOLIDAY', command=updateDisplay)
+		if tamagotchi.holiday:
+			btnFeed.config(text='HOLIDAY', command=GameOn)
+			btnClean.config(text='HOLIDAY', command=GameOn)
+			btnPlay.config(text='HOLIDAY', command=GameOn)
+			btnToilet.config(text='HOLIDAY', command=GameOn)
+			btnNap.config(text='HOLIDAY', command=GameOn)
 
-		elif not tamagotchi.holiday:
+		else:
 			btnFeed.config(text="Feed", command=combine_funcs(tamagotchi.feed, GameOn))
 			btnClean.config(text="Clean", command=combine_funcs(tamagotchi.clean, GameOn))
 			btnPlay.config(text="Play", command=combine_funcs(tamagotchi.play, GameOn))
